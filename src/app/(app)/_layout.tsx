@@ -10,8 +10,8 @@ export default function AppLayout() {
 
   if (authLoading) {
     return (
-      <View className="flex-1 items-center justify-center bg-white dark:bg-ledger-dark">
-        <ActivityIndicator color="#D21F3C" />
+      <View className="flex-1 items-center justify-center bg-ledger-bg dark:bg-ledger-dark">
+        <ActivityIndicator color="#C2255C" />
       </View>
     );
   }
@@ -23,7 +23,7 @@ export default function AppLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#D21F3C',
+        tabBarActiveTintColor: '#C2255C',
       }}>
       <Tabs.Screen name="today" options={{ title: 'Today' }} />
       <Tabs.Screen name="my-week" options={{ title: 'My Week' }} />

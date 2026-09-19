@@ -26,7 +26,7 @@ function TabButton({ label, active, onPress }: { label: string; active: boolean;
   return (
     <Pressable
       onPress={onPress}
-      className={`flex-1 items-center rounded-full py-2 ${active ? 'bg-white dark:bg-ledger-dark' : ''}`}>
+      className={`flex-1 items-center rounded-full py-2 ${active ? 'bg-ledger-bg dark:bg-ledger-dark' : ''}`}>
       <Text className={`font-semibold ${active ? 'text-ledger-red' : 'text-ledger-gray'}`}>{label}</Text>
     </Pressable>
   );
@@ -37,7 +37,7 @@ function Nudges() {
   const todayIndex = dayIndexOf(new Date());
   const setGoals = goals.filter((g) => g.id);
 
-  if (isLoading) return <ActivityIndicator color="#D21F3C" className="mt-8" />;
+  if (isLoading) return <ActivityIndicator color="#C2255C" className="mt-8" />;
 
   const missedToday = hasMissedToday(
     setGoals.map((g) => ({ completedDays: g.completedDays })),

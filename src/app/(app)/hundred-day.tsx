@@ -15,7 +15,7 @@ export default function HundredDay() {
   if (isLoading) {
     return (
       <Screen>
-        <ActivityIndicator color="#D21F3C" className="mt-16" />
+        <ActivityIndicator color="#C2255C" className="mt-16" />
       </Screen>
     );
   }

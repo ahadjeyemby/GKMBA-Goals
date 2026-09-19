@@ -19,7 +19,7 @@ export function Button({ children, onPress, variant = 'primary', disabled, loadi
         isPrimary ? 'bg-ledger-red' : 'border border-ledger-gray/40 bg-transparent'
       } ${disabled || loading ? 'opacity-50' : ''}`}>
       {loading ? (
-        <ActivityIndicator color={isPrimary ? '#fff' : '#D21F3C'} />
+        <ActivityIndicator color={isPrimary ? '#fff' : '#C2255C'} />
       ) : (
         <Text className={`text-base font-semibold ${isPrimary ? 'text-white' : 'text-ledger-red'}`}>
           {children}

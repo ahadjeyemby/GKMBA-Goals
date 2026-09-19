@@ -17,9 +17,14 @@ are not built yet (the Assistant tab's Coach view is a placeholder).
 ## Stack
 
 - Expo SDK 57 + Expo Router (file-based routing, one codebase for iOS/Android/Web)
-- TypeScript, NativeWind v5 (release candidate — the version actually tested
-  against this Expo/React Native/Tailwind v4 combination; see
-  `package.json` for exact versions)
+- TypeScript, NativeWind v4 + Tailwind v3 (classic `tailwind.config.js` +
+  `babel.config.js` with `nativewind/babel`). NativeWind v5 (Tailwind v4,
+  CSS-first `@theme` config) was tried first since it's the version built
+  for this exact Expo/RN/Tailwind combo, but its release-candidate Metro/CSS
+  pipeline wasn't compiling utility classes at all — verified by inspecting
+  the injected `<style>` tags in a headless browser, no rules were being
+  generated. Downgraded to the stable v4/v3 pair, which works.
+- Light magenta theme (`tailwind.config.js` → `ledger-*`/`status-*` colors)
 - Supabase: Postgres + Auth + Storage + Row Level Security
 - React Query for server state
 
