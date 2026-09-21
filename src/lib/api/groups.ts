@@ -10,21 +10,28 @@ function randomInviteCode(): string {
   return code;
 }
 
-export async function createGroup(name: string, userId: string): Promise<Group> {
+/**
+ * Creates the group, the creator's admin membership, and the initial
+ * season atomically via a SECURITY DEFINER RPC. Doing this as three
+ * separate client-side inserts hits an RLS ordering trap: `.insert().select()`
+ * needs the SELECT policy to pass too (it's a RETURNING clause), and the
+ * creator isn't a group_members row yet at the moment the group itself is
+ * inserted - see supabase/migrations/0003_fix_group_create.sql.
+ */
+export async function createGroup(
+  name: string,
+  startDate: Date,
+  weekCount: number,
+): Promise<Group> {
   const invite_code = randomInviteCode();
-  const { data: group, error } = await supabase
-    .from('groups')
-    .insert({ name, invite_code, created_by: userId })
-    .select()
-    .single();
+  const { data, error } = await supabase.rpc('create_group_with_season', {
+    p_name: name,
+    p_invite_code: invite_code,
+    p_start_date: startDate.toISOString().slice(0, 10),
+    p_week_count: weekCount,
+  });
   if (error) throw error;
-
-  const { error: memberError } = await supabase
-    .from('group_members')
-    .insert({ group_id: group.id, user_id: userId, role: 'admin' });
-  if (memberError) throw memberError;
-
-  return group;
+  return data as Group;
 }
 
 export async function joinGroupByCode(inviteCode: string): Promise<string> {

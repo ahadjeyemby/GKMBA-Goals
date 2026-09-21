@@ -7,7 +7,6 @@ import { Screen } from '@/components/ui/screen';
 import { TextField } from '@/components/ui/text-field';
 import { useAuth } from '@/hooks/use-auth';
 import { createGroup, joinGroupByCode } from '@/lib/api/groups';
-import { createSeason } from '@/lib/api/seasons';
 
 type Mode = 'choose' | 'create' | 'join';
 
@@ -27,9 +26,8 @@ export default function Onboarding() {
     setError(null);
     setLoading(true);
     try {
-      const group = await createGroup(groupName.trim(), userId);
       const weeks = Math.max(1, parseInt(weekCount, 10) || 15);
-      await createSeason(group.id, new Date(), weeks);
+      await createGroup(groupName.trim(), new Date(), weeks);
       router.replace('/(app)/today');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not create group');

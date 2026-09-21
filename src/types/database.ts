@@ -254,6 +254,15 @@ export interface Database {
     };
     Views: Record<string, never>;
     Functions: {
+      create_group_with_season: {
+        Args: {
+          p_name: string;
+          p_invite_code: string;
+          p_start_date: string;
+          p_week_count: number;
+        };
+        Returns: Database['public']['Tables']['groups']['Row'];
+      };
       join_group_by_code: {
         Args: { p_invite_code: string };
         Returns: string;
